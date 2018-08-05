@@ -42,6 +42,14 @@ export default class MegaMenuApplicationCustomizer
   public async onInit(): Promise<void> {
     Log.info(LOG_SOURCE, `Initialized ${strings.Title}`);
 
+    // inject the style sheet
+    const head: any = document.getElementsByTagName("head")[0] || document.documentElement;
+    let customStyle: HTMLLinkElement = document.createElement("link");
+    customStyle.href = "/Style%20Library/ESCOThemeEdits/ModernExperienceTweaks.css";
+    customStyle.rel = "stylesheet";
+    customStyle.type = "text/css";
+    head.insertAdjacentElement("beforeEnd", customStyle);
+    
     // Added to handle possible changes on the existence of placeholders.
     this.context.placeholderProvider.changedEvent.add(this, this._renderPlaceHolders);
 
@@ -95,7 +103,7 @@ export default class MegaMenuApplicationCustomizer
     //Adds menu-mobile class (for mobile toggle menu) before the normal menu
     //Mobile menu is hidden if width is more then 959px, but normal menu is displayed
     //Normal menu is hidden if width is below 959px, and jquery adds mobile menu
-    //Done this way so it can be used with wordpress without any trouble
+
 
 	//Make sure that menu is hidden when resizing the window to desktop
 	jQuery(window).resize(function(){
@@ -104,7 +112,7 @@ export default class MegaMenuApplicationCustomizer
       }
     });
   
-  //Make sure menu is hidden when not hovering over it
+  //Make sure that menu is hidden when not hovering over it
     jQuery("body").mousemove(function (e) {
       if (jQuery('#menu').filter(function() { return jQuery(this).is(":hover"); }).length == 0) {
         jQuery("#menu > ul > li").children("ul").hide(150);
